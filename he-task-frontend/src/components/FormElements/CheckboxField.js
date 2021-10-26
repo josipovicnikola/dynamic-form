@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
+import ApiStore from '../../api/api';
 
 export default function CheckboxField(props) {
-	const [checked, setChecked] = useState(false);
-	console.log(props);
-	const isChecked = () => {
-		setChecked(props.val=='1'?true:false);
+	const store = useContext(ApiStore);
+	const [checked, setChecked] = useState(props.val==='1'?true:false);
+	const checkChanged = async () => {
+		let state = checked?false:true;
+		setChecked(state);
+		
+		const response = await store.patchFieldById(props.id, state?'1':'0');
+		console.log(response);
 	}
 	const handleOnChange = (event) => {
-		console.log(event);
-		if(props.val == "1") {
-			props.val = "0";
-		} else {
-			props.val = "1";
-		}
+		checkChanged();
 	}
-	useEffect(() => {
-		isChecked();
-	}, [])
 	return (
 		<>
 		<div className="form-control">

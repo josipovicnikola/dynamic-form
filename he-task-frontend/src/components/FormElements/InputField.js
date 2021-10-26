@@ -3,16 +3,17 @@ import ApiStore from '../../api/api';
 
 export default function InputField(props) {
 	const store = useContext(ApiStore);
-	let initValue = props.val;
+	let [initValue, setInitValue] = useState(props.val);
 	const [value, setValue] = useState(initValue);
 	const changeHandler = (event) => {
 		setValue(event.target.value);
 	}
+	//Submit when field lose focus
 	const focusOutHandler = async (event) => {
 		const val = event.target.value;
-		if(val != initValue){
-			console.log(val);
-			initValue = val;
+		//Check if value is changed
+		if(val !== initValue){
+			setInitValue(val);
 			
 			const response = await store.patchFieldById(props.id, val);
 			console.log(response);
