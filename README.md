@@ -1,7 +1,8 @@
 Dinamicko renderovanje forme
 
 Back je povezan sa bazom, koristim cloud mongo
-Back sam implementirao do kraja, dodao sam neke rute koje ce olaksati testiranje sa postmenom, a koje necu pozivati u frontu
+Takodje back sam implementirao do kraja, dodao sam neke rute koje ce olaksati testiranje sa postmenom, 
+a koje necu pozivati u frontu
 
 BASE_URL je localhost:5000/api/fields
 
