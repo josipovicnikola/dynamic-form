@@ -14,6 +14,8 @@ POST - / - kreira novi fild
 PATCH - /:id - menja fild 
 PATCH - /value/:id - menja samo value properti filda
 
+DELETE - /:id - brise fild 
+
 Front je povezan sa bekom samo da prikupi postojece fildove trenutno.
 
 Nije uradjeno: renderovanje fildova.
