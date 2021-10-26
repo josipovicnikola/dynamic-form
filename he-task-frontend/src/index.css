@@ -52,3 +52,6 @@ select {
 textarea {
   overflow: auto;
 }
+textarea:focus, input:focus{
+  outline-color: #007cba;
+}

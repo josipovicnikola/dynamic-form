@@ -1,8 +1,7 @@
-import logo from './assets/images/logo.svg';
 import './App.css';
 import Header from './layout/Header';
-import {BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
-import { FormPage } from './form/Index';
+import {BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { FormPage } from './form/FormPage';
 
 export default function App() {
   return (

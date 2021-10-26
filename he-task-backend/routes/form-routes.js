@@ -8,7 +8,6 @@ router.get('/', fieldsController.getAllFields);
 router.post('/', fieldsController.createField);
 router.get('/:fid', fieldsController.getFieldById);
 router.patch('/:fid', fieldsController.patchFieldById);
-router.patch('/value/:fid', fieldsController.patchFieldValue);
 router.delete('/:fid', fieldsController.deleteFieldById);
 
 module.exports = router;

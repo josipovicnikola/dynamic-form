@@ -42,81 +42,6 @@ const getFieldById = async (req, res, next) => {
 		.json({field});
 };
 
-
-// <<< Update field value >>>
-const patchFieldValue = async (req, res, next) => {
-	const fieldId = req.params.fid;
-	const { value } = req.body;
-
-	//Value validation
-	if(!value || value === ""){
-		return next(
-			new HttpError('Value is required.', 422)
-		);
-	}
-
-	let updatedField;
-	try {
-		//Get old field from DB by id
-		updatedField = await Field.findById(fieldId);
-		//Check if field with that id exists
-		if(!updatedField){
-			return next(
-				new HttpError('Could not find a field for the provided id.', 404)
-			);
-		}
-		//Update field value and save to DB
-		updatedField.value = value;
-		await updatedField.save();
-	} catch(err) {
-		return next(
-				new HttpError('Something went wrong, could not update a field value.', 500)
-		);
-	}
-
-	res
-	.status(200)
-	.json({updatedField});
-};
-
-// <<< Update field >>>
-const patchFieldById = async (req, res, next) => {
-	const fieldId = req.params.fid;
-	const { label, type, options } = req.body;
-
-	//Label and type validation
-	if(!label || label === "" || !type || type === ""){
-		return next(
-			new HttpError('Label and type are required.', 422)
-		);
-	}
-
-	let updatedField;
-	try {
-		//Get old field from DB by id
-		updatedField = await Field.findById(fieldId);
-		//Check if field with that id exists
-		if(!updatedField){
-			return next(
-				new HttpError('Could not find a field for the provided id.', 404)
-			);
-		}
-		//Update field and save to DB
-		updatedField.label = label;
-		updatedField.type = type;
-		updatedField.options = options || [];
-		updatedField.value = "";
-		await updatedField.save();
-	} catch(err) {
-		return next(
-				new HttpError('Something went wrong, could not update a field.', 500)
-		);
-	}
-	res
-	.status(200)
-	.json({updatedField});
-};
-
 //<<< Create field >>>
 const createField = async (req, res, next) => {
 	const { label, type, options, value } = req.body;
@@ -145,6 +70,46 @@ const createField = async (req, res, next) => {
 	res
 		.status(201)
 		.json({createdField});
+};
+
+// <<< Update field properties>>>
+const patchFieldById = async (req, res, next) => {
+	const fieldId = req.params.fid;
+	let { label, type, options, value } = req.body;
+
+	// label= label ? label : '';
+	// type= type ? type : '';
+	// options= options ? options : [];
+	// value= value ? value : '';
+	console.log(label,type,options,value);
+	let updatedField;
+	try {
+		//Get old field from DB by id
+		updatedField = await Field.findById(fieldId);
+		//Check if field with that id exists
+		if(!updatedField){
+			return next(
+				new HttpError('Could not find a field for the provided id.', 404)
+			);
+		}
+		//Update field and save to DB
+		if(label)
+			updatedField.label = label;
+		if(type)
+			updatedField.type = type;
+		if(options)
+			updatedField.options = options;
+		if(value)
+			updatedField.value = value;
+		await updatedField.save();
+	} catch(err) {
+		return next(
+				new HttpError(err, 500)
+		);
+	}
+	res
+	.status(200)
+	.json({updatedField});
 };
 
 //<<< Delete field >>>
@@ -176,7 +141,6 @@ const deleteFieldById = async (req, res, next) => {
 //<<< Exports >>>
 exports.getAllFields = getAllFields;
 exports.getFieldById = getFieldById;
-exports.patchFieldValue = patchFieldValue;
 exports.patchFieldById = patchFieldById;
 exports.createField = createField;
 exports.deleteFieldById = deleteFieldById;
