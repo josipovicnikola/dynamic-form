@@ -82,7 +82,7 @@ p.text.large {
 .form-control{
   margin: .5rem 1rem;
 }
-.form-control input{
+.form-control input, .form-control select{
   width: 100%;
   padding: 1rem .5rem;
   margin: .5rem 0;
