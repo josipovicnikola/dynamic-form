@@ -1,28 +1,48 @@
 Dinamicko renderovanje forme
 
-Back je povezan sa bazom, koristim cloud mongo.
-Takodje back sam implementirao do kraja, dodao sam neke rute koje ce olaksati testiranje sa postmenom, 
-a koje necu pozivati u frontu.
+Zadatak je zavrsen. Na front se renderuju polja u zavisnosti od tipa polja (string, boolean i array). 
+Vrednost se cuva u bazu za input nakon skidanja fokusa sa polja, kod bool-a i selecta nakon promene selekcije.
+
+Manipulacija nad konkretnim poljima u bazi se vrsi preko back-a, a rute za to su sledece ( u frontu se nalazi samo forma sa poljima )
+
+*const fieldSchema = new Schema({
+	label: { type: String, required: false},
+	type: { type: String, required: false},
+	options: { type: Array, required: false},
+	value: {type: String, required: false}
+})*
 
 BASE_URL je localhost:5000/api/fields
 
-GET - / - vraca sve fildove
-GET - /:id - vraca odredje fild
+*Vraca sva polja*
+Method: GET
+Path: "/"
 
-POST - / - kreira novi fild 
+*Vraca konkretno polje u zavisnosti od id-ja*
+Method: GET
+Path: "/:id"
 
-PATCH - /:id - menja fild 
-PATCH - /value/:id - menja samo value properti filda
+*Kreira novo polje*
+--Prilikom dodavanja novog polja "label" i "type" su obavezni.
+--Tip moze biti ["string","boolean","array"]
+Method: POST
+Path: "/"
 
-DELETE - /:id - brise fild 
+*Azuriranje polja po id-ju*
+--Prilikom izmene samo prosledjeni atributi u JSON-u se menjaju, oni koji nisu prosledjeni ostaju isti
+Method: PATCH
+Path: "/:id"
 
-Front je povezan sa bekom samo da prikupi postojece fildove trenutno.
+*Brisanje polja*
+Method: DELETE
+Path: "/:id"
 
-Nije uradjeno: renderovanje fildova.
 
-Plan:
-Prolazak kroz fildove sa map funkcijom i ubacivanje fild propertija u komponentu <DynamicField/>
-Komponenta dynamicField ce proveravati type properti fielda i na osnovu njega kreirati <InputField/>, <CheckboxField/> ili 
-<DropdownField/> komponentu i na ovome trenutno radim.
-Nakon toga ostaje submit koji ce biti ili pojedinacni za svako polje (koji se nalazi recimo sa desne strane polja)
-ili jedan submit na dnu forme koji ce se odnositi na sva polja.
+
+
+
+
+
+
+
+
