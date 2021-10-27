@@ -13,7 +13,7 @@ Manipulacija nad konkretnim poljima u bazi se vrsi preko back-a, a rute za to su
 })* <br />*
 <br />*
 * BASE_URL je localhost:5000/api/fields <br />*
- <br />*
+ <br />
 **Vraca sva polja** <br />
 *Method*: GET <br />
 *Path*: "/" <br />
