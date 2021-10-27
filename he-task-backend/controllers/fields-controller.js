@@ -1,7 +1,7 @@
 const HttpError = require('../models/http-error');
 const Field = require('../models/field');
 
-//<<< Get all fields >>>
+//## Get all fields
 const getAllFields = async (req, res, next) => {
 	//Get all fields from database
 	let fields;
@@ -18,7 +18,7 @@ const getAllFields = async (req, res, next) => {
 		.json(fields);
 };
 
-//<<< Get field >>>
+//## Get field
 const getFieldById = async (req, res, next) => { 
 	const fieldId = req.params.fid;
 
@@ -42,7 +42,7 @@ const getFieldById = async (req, res, next) => {
 		.json({field});
 };
 
-//<<< Create field >>>
+//## Create field
 const createField = async (req, res, next) => {
 	const { label, type, options, value } = req.body;
 	//Field validation
@@ -72,7 +72,7 @@ const createField = async (req, res, next) => {
 		.json({createdField});
 };
 
-// <<< Update field properties>>>
+// ## Update field properties>>>
 const patchFieldById = async (req, res, next) => {
 	const fieldId = req.params.fid;
 	let { label, type, options, value } = req.body;
@@ -112,7 +112,7 @@ const patchFieldById = async (req, res, next) => {
 	.json({updatedField});
 };
 
-//<<< Delete field >>>
+//## Delete field
 const deleteFieldById = async (req, res, next) => {
 	const fieldId = req.params.fid;
 	
@@ -138,7 +138,7 @@ const deleteFieldById = async (req, res, next) => {
 		.json({message: "Field successfuly deleted."});
 };
 
-//<<< Exports >>>
+//## Exports
 exports.getAllFields = getAllFields;
 exports.getFieldById = getFieldById;
 exports.patchFieldById = patchFieldById;

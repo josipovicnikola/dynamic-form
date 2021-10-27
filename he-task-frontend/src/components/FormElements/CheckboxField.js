@@ -8,8 +8,7 @@ export default function CheckboxField(props) {
 		let state = checked?false:true;
 		setChecked(state);
 		
-		const response = await store.patchFieldById(props.id, state?'1':'0');
-		console.log(response);
+		props.changeFieldValue(props.id, state?'1':'0');
 	}
 	const handleOnChange = (event) => {
 		checkChanged();

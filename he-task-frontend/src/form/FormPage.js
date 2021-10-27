@@ -12,14 +12,39 @@ export const FormPage = () => {
 	useEffect ( () => {
 		store.getAllFields(setFields);
 	}, []);
+	const changeFieldValue = (id,value) => {
+		let tempFields = [...fields];
+		tempFields.map(f => {
+			if(f._id === id)
+				f.value = value;
+		})
+		setFields([...tempFields]);
+	}
+	const onSubmitHandler = async (event) => {
+		event.preventDefault();
+		let tempFields = [];
+		fields.map(f => {
+			let filteredVal = f.value;
+			if(f.type=='boolean'){
+				filteredVal = f.value=='1'?'Yes':'No';
+			}
+			tempFields.push({label:f.label, value:filteredVal});
+		})
+		console.log(JSON.stringify(tempFields));
+		const response = await store.createFieldsData(JSON.stringify(tempFields));
+		console.log(response);
+	}
 	const renderForm = () => {
 		return (
-			<form className="form">
+			<form className="form" onSubmit={onSubmitHandler}>
 					{fields.map( f => {
 							return (
-								<DynamicField key={f._id} field={f}/>
+								<DynamicField key={f._id} field={f} changeFieldValue={changeFieldValue}/>
 							)
 						})}
+						<div className="btn-container">
+							<button className="btn">Submit</button>
+						</div>
 			</form>
 		);
 	}

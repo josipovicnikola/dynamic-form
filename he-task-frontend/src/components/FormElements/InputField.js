@@ -15,8 +15,7 @@ export default function InputField(props) {
 		if(val !== initValue){
 			setInitValue(val);
 			
-			const response = await store.patchFieldById(props.id, val);
-			console.log(response);
+			props.changeFieldValue(props.id, val);
 		}
 	}
 	return (
