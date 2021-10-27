@@ -31,6 +31,22 @@ class Api {
 			console.log(err.message);
 		}
 	}
+	createFieldsData = async (value) => {
+		const route = "/api/fields/data"
+		let response,
+				responseData;
+		try {
+			response = await fetch(BASE_URL + route, {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify({'data':value})
+			});
+			responseData = await response.json();
+			return responseData;
+		} catch(err){
+			console.log(err.message);
+		}
+	}
 }
 
 const ApiStore = createContext(new Api());

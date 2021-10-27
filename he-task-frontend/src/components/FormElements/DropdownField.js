@@ -7,8 +7,7 @@ export default function DropdownField(props) {
 	const selectChanged = async (sel) => {
 		setSelected(sel);
 		
-		const response = await store.patchFieldById(props.id, sel);
-		console.log(response);
+		props.changeFieldValue(props.id, sel);
 	}
 	const handleOnChange = (event) => {
 		selectChanged(event.target.value);
