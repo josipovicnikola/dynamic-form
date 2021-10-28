@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function InputField(props) {
 	let [previousValue, setPreviousValue] = useState('');
@@ -12,9 +12,13 @@ export default function InputField(props) {
 		//Check if value is changed
 		if(val !== previousValue){
 			setPreviousValue(val);
-			props.changeFieldValue(props.id, val);
+			props.changeFieldValue(props.id, val, setValue, true);
 		}
 	}
+
+	useEffect(() => {
+		props.changeFieldValue(props.id, '', setValue, false);
+	}, [])
 	return (
 		<>
 		<div className="form-control">

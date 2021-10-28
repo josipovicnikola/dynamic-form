@@ -11,20 +11,23 @@ export const FormPage = () => {
 	const store = useContext(ApiStore);
 	const [fields, setFields] = useState([]);
 	const [error, setError] = useState('');
+
 	useEffect ( () => {
 		store.getAllFields(setFields);
 	}, []);
-	const changeFieldValue = (id,value,required) => {
+
+	const changeFieldValue = (id,value,setValue, validate) => {
 		let tempFields = [...fields];
 		tempFields.map(f => {
-			if(f._id === id)
+			if(f._id === id){
 				f.value = value;
+				f.setValue = setValue;
+			}
 		})
 		setFields([...tempFields]);
-		isFormValid();
-		console.log(tempFields);
+		validate && isFormValid();
 	}
-	//Form sumbit
+
 	const onSubmitHandler = async (event) => {
 		event.preventDefault();
 		let tempFields = [];
@@ -40,10 +43,10 @@ export const FormPage = () => {
 			})
 			
 			const response = await store.createFieldsData(JSON.stringify(tempFields));
-			console.log(response);
+			resetForm();
 		}
 	}
-	//Validate form
+
 	const isFormValid = () => {
 		let formValid = true;
 		setError('');
@@ -52,12 +55,32 @@ export const FormPage = () => {
 				if(!f.value || f.value === 'undefined'){
 					formValid = false;
 				}
+				if(f.type === "array" && f.value === "None")
+					formValid = false;
 			}
 		})
 		!formValid && setError('Please fill up all required fields.');
-		console.log(error);
 		return formValid;
 	}
+
+	const resetForm = () => {
+		fields.map(f => {
+			switch(f.type){
+				case "string" || "array":
+					f.value = '';
+					f.setValue('');
+					break;
+				case "boolean":
+					f.setValue(false);
+					f.value = false;
+					break;
+				default:
+					f.setValue('');
+					break;
+			}
+		})
+	}
+
 	const renderForm = () => {
 		return (
 			<form id="dynamic-form" className="form" onSubmit={onSubmitHandler}>
@@ -73,6 +96,7 @@ export const FormPage = () => {
 			</form>
 		);
 	}
+
 	return (
 		<Container>
 			<div>

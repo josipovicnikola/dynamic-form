@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function CheckboxField(props) {
 	const [checked, setChecked] = useState(false);
@@ -6,11 +6,15 @@ export default function CheckboxField(props) {
 		let state = checked?false:true;
 		setChecked(state);
 		
-		props.changeFieldValue(props.id, state?'1':'0');
+		props.changeFieldValue(props.id, state?'1':'0', setChecked, true);
 	}
 	const handleOnChange = (event) => {
 		checkChanged();
 	}
+	
+	useEffect(() => {
+		props.changeFieldValue(props.id, checked?'1':'0', setChecked, false);
+	}, [])
 	return (
 		<>
 		<div className="form-control">
