@@ -5,12 +5,12 @@ Vrednost se cuva u bazu za input nakon skidanja fokusa sa polja, kod bool-a i se
  <br />
 Manipulacija nad konkretnim poljima u bazi se vrsi preko back-a, a rute za to su sledece <br />
  <br />
-### `const **fieldSchema** = new Schema({ <br />
+const **fieldSchema** = new Schema({ <br />
 	label: { type: String, required: false}, <br />
 	type: { type: String, required: false}, <br />
 	options: { type: Array, required: false}, <br />
 	value: {type: String, required: false} <br />
-})` <br />
+}) <br />
 # `Field collection` <br />
  <br />
 ## `Vraca sva polja` <br />
