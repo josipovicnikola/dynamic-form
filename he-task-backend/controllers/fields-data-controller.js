@@ -8,6 +8,7 @@ const getAllFieldsData = async (req, res, next) => {
 	try{
 		fieldsData = await FieldData.find();
 	} catch(err){
+		console.log(err);
 		return next(
 			new HttpError('Something went wrong, could not get any fields data.')
 		);

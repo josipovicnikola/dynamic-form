@@ -16,6 +16,13 @@
 .text-white {
 	color: #fff !important;
 }
+.color-red {
+	color: #d50050 !important;
+}
+.text-error {
+  font-weight: 600;
+	color: #d50050 !important;
+}
 .text-left {
   text-align: left;
 }
@@ -24,6 +31,12 @@
 }
 .text-center {
   text-align: center;
+}
+.my-1 {
+  margin:1rem 0;
+}
+.my-05 {
+  margin:.25rem 0;
 }
 .header-info {
   display: flex;
@@ -92,7 +105,7 @@ p.text.large {
   box-sizing: border-box;
 }
 .btn-container {
-  margin-top: 3rem ;
+  margin-top: 1rem ;
   padding: 0 1rem ;
 }
 .btn {
@@ -109,6 +122,13 @@ p.text.large {
 }
 .btn:hover {
   opacity: 0.85;
+}
+.btn:disabled {
+  background-color: #d4d4d4;
+  cursor: unset;
+}
+.btn:disabled:hover {
+  opacity: 1;
 }
 
 .switch {

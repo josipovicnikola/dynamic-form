@@ -1,10 +1,8 @@
-import React, { useContext, useState } from 'react';
-import ApiStore from '../../api/api';
+import React, { useState } from 'react';
 
 export default function CheckboxField(props) {
-	const store = useContext(ApiStore);
-	const [checked, setChecked] = useState(props.val==='1'?true:false);
-	const checkChanged = async () => {
+	const [checked, setChecked] = useState(false);
+	const checkChanged = () => {
 		let state = checked?false:true;
 		setChecked(state);
 		
@@ -16,7 +14,7 @@ export default function CheckboxField(props) {
 	return (
 		<>
 		<div className="form-control">
-			<label htmlFor={props.id}>{props.label}</label>
+			<label htmlFor={props.id}>{props.label} <span className="color-red">{props.required?"*":""}</span></label>
 			<label className="switch">
 				<input id={props.id} type="checkbox" checked={checked} onChange={handleOnChange}/>
 				<span className="slider round"></span>

@@ -44,7 +44,7 @@ const getFieldById = async (req, res, next) => {
 
 //## Create field
 const createField = async (req, res, next) => {
-	const { label, type, options, value } = req.body;
+	const { label, type, options, required } = req.body;
 	//Field validation
 	if(!label || label === "" || !type || type === "" ){
 		return next(
@@ -56,7 +56,7 @@ const createField = async (req, res, next) => {
 		label,
 		type,
 		options,
-		value
+		required
 	});
 	//Add field to database
 	try {
@@ -75,13 +75,9 @@ const createField = async (req, res, next) => {
 // ## Update field properties>>>
 const patchFieldById = async (req, res, next) => {
 	const fieldId = req.params.fid;
-	let { label, type, options, value } = req.body;
+	let { label, type, options, required } = req.body;
 
-	// label= label ? label : '';
-	// type= type ? type : '';
-	// options= options ? options : [];
-	// value= value ? value : '';
-	console.log(label,type,options,value);
+	console.log(label,type,options,required);
 	let updatedField;
 	try {
 		//Get old field from DB by id
@@ -99,8 +95,9 @@ const patchFieldById = async (req, res, next) => {
 			updatedField.type = type;
 		if(options)
 			updatedField.options = options;
-		if(value)
-			updatedField.value = value;
+		if(required != null){
+			updatedField.required = required;
+		}
 		await updatedField.save();
 	} catch(err) {
 		return next(
